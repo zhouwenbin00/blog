@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" shutdownHook="disable">
+    <Properties>
+        <!-- 程序日志相关参数-->
+        <Property name="app_log">target/logs</Property>
+        <Property name="app_name">service-center</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss:SSS} %p][%t-%c{1}:%L]%m%n"/>
+        </Console>
+        <RollingRandomAccessFile name="RollingFile"
+                                 fileName="${app_log}/${app_name}.log"
+                                 filePattern="${app_log}/${app_name}-%d{yyyyMMdd}.log"
+                                 ignoreExceptions="false">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss:SSS} %p][%t-%c{1}:%L]%m%n"/>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${app_log}/" maxDepth="1">
+                    <IfFileName glob="*.log"/>
+                    <IfLastModified age="7d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info" additivity="true">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+            <!--<AppenderRef ref="AsyncAppender"/>-->
+        </Root>
+    </Loggers>
+</Configuration>
