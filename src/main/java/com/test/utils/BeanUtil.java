@@ -56,7 +56,7 @@ public class BeanUtil {
                     } else if (type.endsWith("long")) {
                         declaredField.set(t, Long.parseLong(String.valueOf(attribute)));
                     } else {
-                        LOGGER.info("{}类型属性没注入进去", type);
+                        LOGGER.error("{}类型属性没注入进去", type);
                     }
                 }
             }
@@ -200,7 +200,7 @@ public class BeanUtil {
                 } else if (type.endsWith("long")) {
                     field.set(t, resultSet.getLong(key));
                 } else {
-                    LOGGER.info("{}类型属性没注入进去", type);
+                    LOGGER.error("{}类型属性没注入进去", type);
                 }
             }
         } catch (IllegalAccessException | SQLException e) {
