@@ -5,7 +5,8 @@
   Time: 11:05
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -43,19 +44,25 @@
             </form>
             <%--个人中心--%>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span
-                            class="glyphicon glyphicon-user"></span>李浩源<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="<%=basePath%>article_manager.jsp">博客管理</a></li>
-                        <li><a href="<%=basePath%>message_manager.jsp">消息管理</a></li>
-                        <li><a href="<%=basePath%>edit_information.jsp">修改资料</a></li>
-                        <li><a href="<%=basePath%>my_collection.jsp">我的收藏</a></li>
-                        <li><a href="<%=basePath%>my_follow.jsp">我的关注</a></li>
-                        <li><a href="#">退出</a></li>
-                    </ul>
-                </li>
-                <li><a href="login.jsp">登陆</a></li>
+                <c:choose>
+                    <c:when test="${sessionScope.user!=null}">
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span
+                                    class="glyphicon glyphicon-user"></span>${sessionScope.user.nickname}<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<%=basePath%>article_manager.jsp">博客管理</a></li>
+                                <li><a href="<%=basePath%>message_manager.jsp">消息管理</a></li>
+                                <li><a href="<%=basePath%>edit_information.jsp">修改资料</a></li>
+                                <li><a href="<%=basePath%>my_collection.jsp">我的收藏</a></li>
+                                <li><a href="<%=basePath%>my_follow.jsp">我的关注</a></li>
+                                <li><a href="<%=basePath%>user/logout">退出</a></li>
+                            </ul>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="login.jsp">登陆</a></li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

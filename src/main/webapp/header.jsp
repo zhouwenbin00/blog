@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css">
     <link rel="stylesheet" href="<%=basePath%>css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="<%=basePath%>css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="<%=basePath%>css/bootstrapValidator.min.css">
     <link rel="stylesheet" href="<%=basePath%>css/common.css">
     <link rel="stylesheet" href="<%=basePath%>fonts/iconfont.css">
 
@@ -28,6 +29,8 @@
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
     <script src="js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
     <script src="js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+    <script src="<%=basePath%>js/bootstrapValidator.min.js" type="text/javascript"></script>
+    <script src="<%=basePath%>js/zh_CN.js" type="text/javascript"></script>
 </head>
 
 <body>
