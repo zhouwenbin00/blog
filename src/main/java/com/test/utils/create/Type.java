@@ -24,6 +24,85 @@ public enum Type {
       return "java.util.Date";
     }
   },
+  BIGINT {
+    @Override
+    String type() {
+      return "Long";
+    }
+  },
+  TINYINT {
+    @Override
+    String type() {
+      return "Byte";
+    }
+  },
+  TEXT {
+    @Override
+    String type() {
+      return "String";
+    }
+  },
+  TIMESTAMP {
+    @Override
+    String type() {
+      return "Timestamp";
+    }
+
+    String backage() {
+      return "java.sql.Timestamp";
+    }
+  },
+  MEDIUMBLOB {
+    @Override
+    String type() {
+      return "Integer";
+    }
+  },
+  CHAR{
+    @Override
+    String type() {
+      return "String";
+    }
+  },
+  LONGVARCHAR{
+    @Override
+    String type() {
+      return "String";
+    }
+  },
+  NUMERIC{
+    @Override
+    String type() {
+      return "BigDecimal";
+    }
+    String backage() {
+      return " java.math.BigDecimal";
+    }
+  },
+  DECIMAL{
+    @Override
+    String type() {
+      return "BigDecimal";
+    }
+    String backage() {
+      return " java.math.BigDecimal";
+    }
+  },
+  BIT{
+    @Override
+    String type() {
+      return "Boolean";
+    }
+  },
+  BOOLEAN{
+    @Override
+    String type() {
+      return "Boolean";
+    }
+  }
+
+
+
   ;
 
   abstract String type();

@@ -7,10 +7,6 @@
   <groupId>com.test</groupId>
   <artifactId>blog</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <modules>
-    <module>c</module>
-  </modules>
-  <packaging>pom</packaging>
 
   <name>blog Maven Webapp</name>
   <!-- FIXME change it to the project's website -->

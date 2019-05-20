@@ -15,13 +15,13 @@ public class GenerateBeanCode {
 
   private static final String DRIVER = "com.mysql.jdbc.Driver";
   private static final String URL =
-      "jdbc:mysql://127.0.0.1:3306/blog?autoReconnect=true&characterEncoding=UTF-8";
+      "jdbc:mysql://127.0.0.1:3306/game_data?autoReconnect=true&characterEncoding=UTF-8";
   private static final String USERNAME = "game";
   private static final String PASSWORD = "game";
 
   private static final String SQL = "SELECT * FROM "; // 数据库操作
 
-  static List<String> importList = new ArrayList<>();
+  static Map<String, List<String>> importList = new HashMap<>();
 
   private String packageName;
   private String path;
@@ -171,7 +171,7 @@ public class GenerateBeanCode {
         list.add(
             new FieldBean(
                 Type.valueOf(rsmd.getColumnTypeName(i + 1)).type(), rsmd.getColumnName(i + 1)));
-        addToImportList(Type.valueOf(rsmd.getColumnTypeName(i + 1)).backage());
+        addToImportMap(tableName, Type.valueOf(rsmd.getColumnTypeName(i + 1)).backage());
       }
     } catch (SQLException e) {
       LOGGER.error("getFeildBean failure", e);
@@ -188,16 +188,18 @@ public class GenerateBeanCode {
     return list;
   }
 
-  private static void addToImportList(String type) {
+  private static void addToImportMap(String tableName, String type) {
     // 类型判断是否需要导包
     // 然后放到importList
+    importList.computeIfAbsent(tableName, k -> new ArrayList<>());
     if (type == null) {
       return;
     }
-    if (importList.contains(type)) {
+    if (importList.get(tableName).contains(type)) {
       return;
     }
-    importList.add(type);
+
+    importList.get(tableName).add(type);
   }
 
   /**
@@ -368,14 +370,13 @@ public class GenerateBeanCode {
 
     for (String key : map.keySet()) {
       Map<String, String> columnComments = getColumnComments(key);
-      System.out.println(key);
       // 这里创建文件
       File file = new File(path + "\\" + toCamelCase(1, key) + ".java");
       setFile(file);
       // package 声明
       append(file, String.format("package %s;" + "\r\n\r\n", packageName));
       // 导包文本添加
-      for (String str : importList) {
+      for (String str : importList.get(key)) {
         append(file, String.format("import %s;" + "\r\n\r\n", str));
       }
       append(file, String.format("public class %s {" + "\r\n", toCamelCase(1, key)));
@@ -405,7 +406,7 @@ public class GenerateBeanCode {
             file,
             String.format(
                 "\t"
-                    + "public void %s(%s %s) {"
+                    + "public void set%s(%s %s) {"
                     + "\r\n"
                     + "\t"
                     + "\t"
@@ -424,7 +425,7 @@ public class GenerateBeanCode {
             file,
             String.format(
                 "\t"
-                    + "public %s %s() {"
+                    + "public %s get%s() {"
                     + "\r\n"
                     + "\t"
                     + "\t"
@@ -439,7 +440,7 @@ public class GenerateBeanCode {
                 toCamelCase(0, fieldBean.getName())));
       }
       append(file, "}");
-      importList.clear();
+      LOGGER.info("表{}的实体类{}创建完成", key, toCamelCase(1, key));
     }
   }
 
