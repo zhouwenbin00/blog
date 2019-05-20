@@ -10,15 +10,15 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="header.jsp" />
 <body>
-<jsp:include page="navbar.jsp"></jsp:include>
+<jsp:include page="navbar.jsp" />
 <div class="container">
     <div class="page-header">
         <h1>用户注册</h1>
     </div>
     <div class="row col-md-4">
-        <form action="" method="post">
+        <form action="user/register" method="post">
             <div class="form-group">
                 <div class="form-group">
                     <label for="nickname">昵称：</label>
@@ -36,7 +36,7 @@
                     <label for="password2">确认密码：</label>
                     <input type="text" class="form-control" id="password2" name="password2" placeholder="长度为6到18个字符，不能包括空格">
                 </div>
-                <button class="btn btn-success btn-block">注册</button>
+                <button class="btn btn-success btn-block" type="submit">注册</button>
                 <a href="<%=basePath%>login.jsp" class="btn btn-link">已有账号？立即登陆>>></a>
             </div>
         </form>

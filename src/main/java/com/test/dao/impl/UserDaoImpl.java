@@ -2,12 +2,13 @@ package com.test.dao.impl;
 
 import com.test.bean.User;
 import com.test.dao.UserDao;
-import com.test.utils.DBUtil;
+import com.test.utils.*;
 import com.test.utils.sql.Prepare;
 import com.test.utils.sql.Select;
 import com.test.utils.sql.Where;
 
 import java.util.Arrays;
+import java.util.List;
 
 /** @Author: zwb @Date: 2019-05-18 22:30 */
 public class UserDaoImpl implements UserDao {
@@ -25,20 +26,15 @@ public class UserDaoImpl implements UserDao {
     return DBUtil.QueryOne(select, User.class);
   }
 
-  public static void main(String[] args) {
+  @Override
+  public int insertUser(User user) {
+    QuicklyQuery quicklyQuery = new QuicklyQuery();
+    return quicklyQuery.insertObject(user);
+  }
 
-    Select select =
-        Prepare.select("*")
-            .from("t_user")
-            .where(
-                Where.create()
-                    .whereEquals("username", "zhangsan")
-                    .and()
-                    .whereEquals("password", "123"));
-    System.out.println(select.sql());
-
-    System.out.println(Arrays.toString(select.params()));
-    User user = DBUtil.QueryOne(select, User.class);
-    System.out.println(user);
+  @Override
+  public List<User> selectByUser(User user) {
+    QuicklyQuery quicklyQuery = new QuicklyQuery();
+    return quicklyQuery.selectByObject(user);
   }
 }

@@ -15,12 +15,12 @@ public class Insert implements SQL {
     return new Insert();
   }
 
-  private Insert into(String tableName) {
+  public Insert into(String tableName) {
     this.tableName = tableName;
     return this;
   }
 
-  private Insert values(Object... values) {
+  public Insert values(Object... values) {
     ConditionsUtil.checkArgument(
         values != null && values.length > 0 && (values.length & 1) == 0, "长度必须为2n");
     int length = values.length >> 1;

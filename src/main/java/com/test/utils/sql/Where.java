@@ -12,6 +12,7 @@ import java.util.List;
 public class Where implements SQL {
   private List<Triple<Conditions, String, Object>> wheres = new ArrayList<>();
   private int condtionsValueCounts;
+  private String otherCondtions;
 
   private Where() {}
 
@@ -36,6 +37,11 @@ public class Where implements SQL {
     }
     wheres.add(Triple.ofImmutable(conditions, fieldName, value));
   }
+  public  Where whereOther(String other) {
+    this.otherCondtions = other;
+    return this;
+  }
+
 
   /**
    * 等于
@@ -182,6 +188,9 @@ public class Where implements SQL {
       builder.append(" ");
     }
     builder.deleteCharAt(builder.length() - 1);
+    if (StringUtil.notEmptyOrNull(otherCondtions)){
+      builder.append(" "+otherCondtions);
+    }
     return builder.toString();
   }
 

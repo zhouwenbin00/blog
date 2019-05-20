@@ -1,12 +1,13 @@
 package com.test.bean;
 
+
 /**
  * 用户实体
  * @Author: zwb
  * @Date: 2019-05-18 22:27
  */
 public class User {
-    private int id;
+    private Integer id;
     private String username;
     private String password;
     private String nickname;

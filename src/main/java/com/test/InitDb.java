@@ -92,7 +92,8 @@ public class InitDb {
                     sb.append("`").append(key).append("` INT NOT NULL,").append("\n");
                 } else if (type.endsWith("Date")) {
                     sb.append("`").append(key).append("` DATE,").append("\n");
-
+                }else if (type.endsWith("Integer")) {
+                    sb.append("`").append(key).append("` INTEGER,").append("\n");
                 } else {
                     LOGGER.error("{}类型属性没注入进去", type);
                 }

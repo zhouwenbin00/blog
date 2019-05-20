@@ -10,6 +10,8 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    session.setAttribute("basePath",basePath);
+
 %>
 <jsp:include page="header.jsp" />
 <jsp:include page="navbar.jsp" />

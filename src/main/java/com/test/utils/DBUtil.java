@@ -97,6 +97,7 @@ public class DBUtil {
             LOGGER.error(e.getMessage());
         } finally {
             close(connection, preparedStatement, null);
+            LOGGER.info("执行:{}参数：{}", update.sql(), Arrays.toString(update.params()));
         }
         return i;
     }
@@ -143,6 +144,7 @@ public class DBUtil {
             LOGGER.error(e.getMessage());
         } finally {
             close(connection, preparedStatement, resultSet);
+            LOGGER.info("执行:{}参数：{}", select.sql(), Arrays.toString(select.params()));
         }
 
         return list;
