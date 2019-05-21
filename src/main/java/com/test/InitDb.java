@@ -1,8 +1,10 @@
 package com.test;
 
+import com.test.bean.User;
 import com.test.utils.BeanUtil;
 import com.test.utils.DBUtil;
 import com.test.utils.FileUtil;
+import com.test.utils.sql.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -115,6 +117,6 @@ public class InitDb {
 
     public static void main(String[] args) throws Exception {
 //    InitDb.initDB( SerivceEnviroment.getSerivceEnviroment());
-//        CreateTable();
+        CreateTable();
     }
 }

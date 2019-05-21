@@ -58,51 +58,60 @@ public enum Type {
       return "Integer";
     }
   },
-  CHAR{
+  CHAR {
     @Override
     String type() {
       return "String";
     }
   },
-  LONGVARCHAR{
+  LONGVARCHAR {
     @Override
     String type() {
       return "String";
     }
   },
-  NUMERIC{
+  NUMERIC {
     @Override
     String type() {
       return "BigDecimal";
     }
+
     String backage() {
       return " java.math.BigDecimal";
     }
   },
-  DECIMAL{
+  DECIMAL {
     @Override
     String type() {
       return "BigDecimal";
     }
+
     String backage() {
       return " java.math.BigDecimal";
     }
   },
-  BIT{
+  BIT {
     @Override
     String type() {
       return "Boolean";
     }
   },
-  BOOLEAN{
+  BOOLEAN {
     @Override
     String type() {
       return "Boolean";
     }
-  }
+  },
+  DATETIME {
+    @Override
+    String type() {
+      return "Timestamp";
+    }
 
-
-
+    String backage() {
+      return "java.sql.Timestamp";
+    }
+  },
   ;
 
   abstract String type();

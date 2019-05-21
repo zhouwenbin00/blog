@@ -2,6 +2,7 @@ package com.test.dao;
 
 import com.test.bean.User;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface UserDao {
 
-    User login(String username, String password);
+    User login(String username, String password) throws SQLException;
 
     int insertUser(User user);
 

@@ -21,7 +21,8 @@ public class QuicklyQuery {
     try {
       Class<T> clazz = (Class<T>) t.getClass();
       String name = clazz.getName().toLowerCase();
-      String table = "t_" + name.toLowerCase().substring(name.lastIndexOf(".") + 1, name.length());
+//      String table = "t_" + name.toLowerCase().substring(name.lastIndexOf(".") + 1, name.length());
+      String table = name.toLowerCase().substring(name.lastIndexOf(".") + 1, name.length());
       Map<String, Field> fieldMap = BeanUtil.getFieldMap(clazz);
       Where where = Where.create();
       for (Field field : fieldMap.values()) {
@@ -45,7 +46,8 @@ public class QuicklyQuery {
     try {
       Class<T> clazz = (Class<T>) t.getClass();
       String name = clazz.getName().toLowerCase();
-      String table = "t_" + name.toLowerCase().substring(name.lastIndexOf(".") + 1, name.length());
+//      String table = "t_" + name.toLowerCase().substring(name.lastIndexOf(".") + 1, name.length());
+      String table = name.toLowerCase().substring(name.lastIndexOf(".") + 1, name.length());
       Map<String, Field> fieldMap = BeanUtil.getFieldMap(clazz);
       List<Object> params = new ArrayList<>();
       for (Field field : fieldMap.values()) {

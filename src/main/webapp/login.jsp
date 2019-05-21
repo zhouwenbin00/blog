@@ -10,11 +10,11 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-    session.setAttribute("basePath",basePath);
+    session.setAttribute("basePath", basePath);
 
 %>
-<jsp:include page="header.jsp" />
-<jsp:include page="navbar.jsp" />
+<jsp:include page="header.jsp"/>
+<jsp:include page="navbar.jsp"/>
 <%--登陆页面--%>
 <div class="container" style="padding: 20px">
     <div class="row col-md-4">
@@ -24,21 +24,28 @@
         <%--表单--%>
         <form action="<%=basePath%>user/login" method="post">
             <%--用户名--%>
-            <div class="form-group">
+            <div class="form-group <c:if test="${requestScope.errMsg!=null}">has-error</c:if>">
                 <label for="username">账号：</label>
-                <input id="username" type="text" class="form-control" placeholder="请输入您的账号" name="username" value="${cookie.username.value}">
+                <input id="username" type="text" class="form-control" placeholder="请输入您的账号" name="username"
+                       value="${cookie.username.value}">
+                <c:if test="${requestScope.errMsg!=null}">
+                    <small data-bv-validator="notEmpty" data-bv-validator-for="username"
+                           class="help-block">${requestScope.errMsg}</small>
+                </c:if>
+
             </div>
             <%--密码--%>
             <div class="form-group">
                 <label for="password">密码：</label>
-                <input id="password" type="password" class="form-control" placeholder="请输入您的密码" name="password" value="${cookie.password.value}">
+                <input id="password" type="password" class="form-control" placeholder="请输入您的密码" name="password"
+                       value="${cookie.password.value}">
             </div>
             <%--记住密码--%>
             <div class="checkbox">
                 <label>
                     <input type="checkbox" name="remember"
                     <c:if test="${cookie.username!=null}">
-                        checked
+                           checked
                     </c:if>
                     >记住密码
                 </label>
@@ -66,7 +73,7 @@
 <script type="text/javascript">
     $(function () {
         $('form').bootstrapValidator({
-            disableSubmitButtons:false,
+            disableSubmitButtons: false,
             message: 'This value is not valid',
             feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
@@ -89,7 +96,7 @@
                         }
                     }
                 }
-            } 
+            }
         });
     });
 </script>

@@ -23,8 +23,14 @@ public class UserRegisterServlet extends HttpServlet {
 
     if (isRegister > 0) {
       // 成功
+      request
+          .getRequestDispatcher(
+              String.format(
+                  "/user/login?username=%s&password=%s&remember=on", user.getUsername(), user.getPassword()))
+          .forward(request, response);
     } else {
       // 失败
+      request.getRequestDispatcher("/register.jsp").forward(request, response);
     }
   }
 
