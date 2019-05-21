@@ -1,5 +1,7 @@
 package com.test.utils;
 
+import com.sun.istack.internal.Nullable;
+
 /** 条件工具类 @Auther: zhouwenbin @Date: 2019/5/17 15:06 */
 public class ConditionsUtil {
 
@@ -48,9 +50,15 @@ public class ConditionsUtil {
    * @param errMsg
    * @param params
    */
-  public static void args(boolean isRight, String errMsg, Object... params) {
+  public static void checkArgument(boolean isRight, String errMsg, Object... params) {
     if (!isRight) {
       throw new IllegalArgumentException(format(errMsg, params));
+    }
+  }
+
+  public static void checkArgument(boolean isRight) {
+    if (!isRight) {
+      throw new IllegalArgumentException();
     }
   }
 

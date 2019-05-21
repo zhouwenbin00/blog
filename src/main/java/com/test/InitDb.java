@@ -5,7 +5,6 @@ import com.test.utils.DBUtil;
 import com.test.utils.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.org.mozilla.javascript.internal.ast.IfStatement;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -93,9 +92,10 @@ public class InitDb {
                     sb.append("`").append(key).append("` INT NOT NULL,").append("\n");
                 } else if (type.endsWith("Date")) {
                     sb.append("`").append(key).append("` DATE,").append("\n");
-
+                }else if (type.endsWith("Integer")) {
+                    sb.append("`").append(key).append("` INTEGER,").append("\n");
                 } else {
-                    LOGGER.info("{}类型属性没注入进去", type);
+                    LOGGER.error("{}类型属性没注入进去", type);
                 }
             }
             //todo PRIMARY KEY?

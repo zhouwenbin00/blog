@@ -10,9 +10,11 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    session.setAttribute("basePath",basePath);
+
 %>
-<jsp:include page="header.jsp"></jsp:include>
-<jsp:include page="navbar.jsp"></jsp:include>
+<jsp:include page="header.jsp" />
+<jsp:include page="navbar.jsp" />
 <%--登陆页面--%>
 <div class="container" style="padding: 20px">
     <div class="row col-md-4">
