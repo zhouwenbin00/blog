@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: root
@@ -5,14 +6,14 @@
   Time: 20:46
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="header.jsp"/>
 <body>
-<jsp:include page="navbar.jsp"></jsp:include>
+<jsp:include page="navbar.jsp"/>
 <div class="container">
     <%--路径导航--%>
     <ol class="breadcrumb">
@@ -21,7 +22,7 @@
     </ol>
     <div class="row">
         <%--左侧帮助--%>
-        <jsp:include page="left_help.jsp"></jsp:include>
+        <jsp:include page="left_help.jsp" />
         <%--右侧--%>
         <div class="col-md-9">
             <div class="panel panel-default">
@@ -47,90 +48,45 @@
                             </div>
                             <%--博文列表--%>
                             <ul class="list-group">
-                                <li class="list-group-item">
-                                    <div class="media">
-                                        <div class="media-heading">
-                                            <h3>z这个是骚哥 <span class="label label-danger">原</span></h3>
-                                        </div>
-                                        <div class="media-body">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <a href="#">
-                                                        <img src="images/me.jpg" class="media-object" alt="" height="32"
-                                                             width="32">
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <p style="color: #737373">
-                                                        骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮
-                                                        <span class="badge"><span
-                                                                class="glyphicon glyphicon-thumbs-up"></span> 42
+                                <c:forEach var="article" items="${sessionScope.hotList}">
+                                    <li class="list-group-item">
+                                        <div class="media">
+                                            <div class="media-heading">
+                                                <h3><a href="/article/details?id=${article.id}">${article.title}</a> <span
+                                                        class="label label-danger"><c:choose>
+                                                    <c:when test="${article.original==1}">
+                                                        原
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        转
+                                                    </c:otherwise>
+                                                </c:choose></span></h3>
+                                            </div>
+                                            <div class="media-body">
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img src="images/me.jpg" class="media-object" alt=""
+                                                                 height="32"
+                                                                 width="32">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <p style="color: #737373">
+                                                            骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮
+                                                            <span class="badge"><span
+                                                                    class="glyphicon glyphicon-thumbs-up"></span> ${article.like}
                                                     </span>
-                                                        <span class="badge"><span
-                                                                class="glyphicon glyphicon-eye-open"> </span> 42
+                                                            <span class="badge"><span
+                                                                    class="glyphicon glyphicon-eye-open"> </span> ${article.look}
                                                     </span>
-                                                    </p>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="media">
-                                        <div class="media-heading">
-                                            <h3>z这个是骚哥 <span class="label label-danger">原</span></h3>
-                                        </div>
-                                        <div class="media-body">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <a href="#">
-                                                        <img src="images/me.jpg" class="media-object" alt="" height="32"
-                                                             width="32">
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <p style="color: #737373">
-                                                        骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮
-                                                        <span class="badge"><span
-                                                                class="glyphicon glyphicon-thumbs-up"></span> 42
-                                                    </span>
-                                                        <span class="badge"><span
-                                                                class="glyphicon glyphicon-eye-open"> </span> 42
-                                                    </span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="media">
-                                        <div class="media-heading">
-                                            <h3>z这个是骚哥 <span class="label label-danger">原</span></h3>
-                                        </div>
-                                        <div class="media-body">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <a href="#">
-                                                        <img src="images/me.jpg" class="media-object" alt="" height="32"
-                                                             width="32">
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <p style="color: #737373">
-                                                        骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮 骚哥牛皮
-                                                        <span class="badge"><span
-                                                                class="glyphicon glyphicon-thumbs-up"></span> 42
-                                                    </span>
-                                                        <span class="badge"><span
-                                                                class="glyphicon glyphicon-eye-open"> </span> 42
-                                                    </span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -150,46 +106,12 @@
                             </div>
                             <%--博文列表--%>
                             <ul class="list-group">
-                                <li class="list-group-item">
-                                    <a href="#">JDK将收费？程序员将何去何从？</a>
-                                    <span style="color: #9F9F9F">2018-02-02 12:12</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="#">IT大厂裁员，程序员行业饱和？</a>
-                                    <span style="color: #9F9F9F">2018-02-02 12:12</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="#">JDK将收费？程序员将何去何从？</a>
-                                    <span style="color: #9F9F9F">2018-02-02 12:12</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="#">IT大厂裁员，程序员行业饱和？</a>
-                                    <span style="color: #9F9F9F">2018-02-02 12:12</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="#">JDK将收费？程序员将何去何从？</a>
-                                    <span style="color: #9F9F9F">2018-02-02 12:12</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="#">IT大厂裁员，程序员行业饱和？</a>
-                                    <span style="color: #9F9F9F">2018-02-02 12:12</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="#">JDK将收费？程序员将何去何从？</a>
-                                    <span style="color: #9F9F9F">2018-02-02 12:12</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="#">IT大厂裁员，程序员行业饱和？</a>
-                                    <span style="color: #9F9F9F">2018-02-02 12:12</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="#">JDK将收费？程序员将何去何从？</a>
-                                    <span style="color: #9F9F9F">2018-02-02 12:12</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="#">IT大厂裁员，程序员行业饱和？</a>
-                                    <span style="color: #9F9F9F">2018-02-02 12:12</span>
-                                </li>
+                                <c:forEach var="article2" items="${sessionScope.newList}">
+                                    <li class="list-group-item">
+                                        <a href="/article/details?id=${article2.id}">${article2.title}</a>
+                                        <span style="color: #9F9F9F">${article2.createDate}</span>
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -198,6 +120,11 @@
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        $.post("/article/index");
+    })
 
+</script>
 </body>
 </html>

@@ -4,19 +4,32 @@ import java.sql.Timestamp;
 
 public class Article {
 
+	/** id*/
 	private Integer id;
 
+	/** 标题*/
 	private String title;
 
-	private String content;
+	/** 内容*/
+	private byte[] content;
 
-	private String auther;
+	/** 作者*/
+	private Integer auther;
 
-	private Timestamp createDate;
+	/** 创建时间*/
+	private Timestamp create_date;
 
+	/** 点赞数*/
 	private Integer like;
 
+	/** 阅读数*/
 	private Integer look;
+
+	/** 系统分类*/
+	private Integer type;
+
+	/** 原创*/
+	private Byte original;
 
 	public void setId(Integer id) {
 		this.id = id;
@@ -34,28 +47,28 @@ public class Article {
 		return title;
 	}
 
-	public void setContent(String content) {
+	public void setContent(byte[] content) {
 		this.content = content;
 	}
 
-	public String getContent() {
+	public byte[] getContent() {
 		return content;
 	}
 
-	public void setAuther(String auther) {
+	public void setAuther(Integer auther) {
 		this.auther = auther;
 	}
 
-	public String getAuther() {
+	public Integer getAuther() {
 		return auther;
 	}
 
 	public void setCreateDate(Timestamp createDate) {
-		this.createDate = createDate;
+		this.create_date = createDate;
 	}
 
 	public Timestamp getCreateDate() {
-		return createDate;
+		return create_date;
 	}
 
 	public void setLike(Integer like) {
@@ -74,6 +87,22 @@ public class Article {
 		return look;
 	}
 
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setOriginal(Byte original) {
+		this.original = original;
+	}
+
+	public Byte getOriginal() {
+		return original;
+	}
+
 	@Override
 	public String toString() {
 		return "Article{" +
@@ -81,10 +110,11 @@ public class Article {
 				", title='" + title +'\''+
 				", content='" + content +'\''+
 				", auther='" + auther +'\''+
-				", createDate='" + createDate +'\''+
+				", createDate='" + create_date +'\''+
 				", like='" + like +'\''+
 				", look='" + look +'\''+
+				", type='" + type +'\''+
+				", original='" + original +'\''+
 				'}';
 	}
-
 }

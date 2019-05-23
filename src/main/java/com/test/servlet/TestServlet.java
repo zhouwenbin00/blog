@@ -1,6 +1,9 @@
 package com.test.servlet;
 
+import com.test.bean.Article;
 import com.test.bean.User;
+import com.test.service.ArticleService;
+import com.test.service.impl.ArticleServiceImpl;
 import com.test.utils.BeanUtil;
 
 import javax.servlet.ServletException;
@@ -10,23 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * @Author: zwb
- * @Date: 2019-05-19 13:27
- */
-@WebServlet(name = "TestServlet",value = "/testServlet")
+/** @Author: zwb @Date: 2019-05-19 13:27 */
+@WebServlet(name = "TestServlet", value = "/testServlet")
 public class TestServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = BeanUtil.newObjFromRequest(request, User.class);
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    request.setCharacterEncoding("utf-8");
+    Article article = BeanUtil.newObjFromRequest(request, Article.class);
+    ArticleService service = new ArticleServiceImpl();
+    service.add(article);
+    System.out.println(article);
+    request.setAttribute("article", article);
+    request.getRequestDispatcher("/test.jsp").forward(request, response);
+  }
 
-        System.out.println(user.getId());
-        System.out.println( user.getUsername());
-        System.out.println(user.getPassword());
-        System.out.println(user.getNickname());
-        System.out.println(user);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {}
 }

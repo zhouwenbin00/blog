@@ -187,7 +187,10 @@ public class Where implements SQL {
       }
       builder.append(" ");
     }
-    builder.deleteCharAt(builder.length() - 1);
+    if (builder.length()>0){
+
+      builder.deleteCharAt(builder.length() - 1);
+    }
     if (StringUtil.notEmptyOrNull(otherCondtions)){
       builder.append(" "+otherCondtions);
     }

@@ -80,6 +80,12 @@ public enum Type {
       return " java.math.BigDecimal";
     }
   },
+  LONGBLOB{
+    @Override
+    String type() {
+      return "byte[]";
+    }
+  },
   DECIMAL {
     @Override
     String type() {

@@ -381,7 +381,12 @@ public class GenerateBeanCode {
           LOGGER.error("create New File failure", e);
         }
       } else {
-        continue;
+        file.delete();
+        try {
+          file.createNewFile();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       }
       // package 声明
       append(file, String.format("package %s;" + "\r\n\r\n", packageName));
@@ -407,7 +412,7 @@ public class GenerateBeanCode {
             file,
             String.format(
                 "\t" + "private %s %s;" + "\r\n",
-                fieldBean.getType(), toCamelCase(0, fieldBean.getName())));
+                fieldBean.getType(), fieldBean.getName()));
       }
       append(file, "\r\n");
       for (FieldBean fieldBean : map.get(key)) {
@@ -429,7 +434,7 @@ public class GenerateBeanCode {
                 toCamelCase(1, fieldBean.getName()),
                 fieldBean.getType(),
                 toCamelCase(0, fieldBean.getName()),
-                toCamelCase(0, fieldBean.getName()),
+                fieldBean.getName(),
                 toCamelCase(0, fieldBean.getName())));
         append(
             file,
@@ -447,7 +452,7 @@ public class GenerateBeanCode {
                     + "\r\n",
                 fieldBean.getType(),
                 toCamelCase(1, fieldBean.getName()),
-                toCamelCase(0, fieldBean.getName())));
+                fieldBean.getName()));
       }
       // 写入toString
       append(
@@ -462,14 +467,14 @@ public class GenerateBeanCode {
               file,
               String.format(
                   "\t\t\t\t\"%s='\" + %s + '\\'' +\n",
-                  toCamelCase(0, fieldBean.getName()), toCamelCase(0, fieldBean.getName())));
+                  toCamelCase(0, fieldBean.getName()), fieldBean.getName()));
           index = false;
         } else {
           append(
               file,
               String.format(
                   "\t\t\t\t\", %s='\" + %s +'\\''+\n",
-                  toCamelCase(0, fieldBean.getName()), toCamelCase(0, fieldBean.getName())));
+                  toCamelCase(0, fieldBean.getName()), fieldBean.getName()));
         }
       }
       append(file, "\t\t\t\t'}';\n" + "\t}\n");

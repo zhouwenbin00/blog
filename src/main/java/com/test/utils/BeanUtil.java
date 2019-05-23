@@ -36,6 +36,7 @@ public class BeanUtil {
       while (parameterNames.hasMoreElements()) {
         // 获取参数key
         String element = parameterNames.nextElement();
+        System.out.println(element);
         if (fieldMap.containsKey(element)) {
           Field declaredField = fieldMap.get(element);
           // 获取参数value
@@ -47,8 +48,18 @@ public class BeanUtil {
             declaredField.set(t, String.valueOf(attribute));
           } else if (type.endsWith("int")) {
             declaredField.set(t, Integer.parseInt(String.valueOf(attribute)));
+          }else if (type.endsWith("Integer")) {
+            declaredField.set(t, Integer.parseInt(String.valueOf(attribute)));
           } else if (type.endsWith("long")) {
             declaredField.set(t, Long.parseLong(String.valueOf(attribute)));
+          } else if (type.equals("class [Ljava.lang.Byte;")) {
+            byte[] bytes = String.valueOf(attribute).getBytes();
+            declaredField.set(t, bytes);
+          }else if (type.equals("class java.lang.Byte")) {
+            declaredField.set(t, Byte.parseByte(String.valueOf(attribute)));
+          }else if (type.equals("class [B")) {
+            byte[] bytes = String.valueOf(attribute).getBytes();
+            declaredField.set(t, bytes);
           } else {
             LOGGER.error("{}类型属性没注入进去", type);
           }
@@ -193,6 +204,12 @@ public class BeanUtil {
           field.set(t, resultSet.getInt(key));
         } else if (type.endsWith("long")) {
           field.set(t, resultSet.getLong(key));
+        }else if (type.endsWith("Byte")) {
+          field.set(t, resultSet.getByte(key));
+        } else if (type.endsWith("Timestamp")) {
+          field.set(t, resultSet.getTimestamp(key));
+        }else if (type.equals("class [B")) {
+          field.set(t, resultSet.getBytes(key));
         } else {
           LOGGER.error("{}类型属性没注入进去", type);
         }

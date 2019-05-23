@@ -2,7 +2,7 @@ package com.test.servlet;
 
 import com.test.service.UserService;
 import com.test.service.impl.UserServiceImpl;
-import com.test.utils.sql.JsonUtil;
+import com.test.utils.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

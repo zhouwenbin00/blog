@@ -1,22 +1,26 @@
 package com.test.bean;
 
-/**
- * User实体
- */
 public class User {
 
+	/** id*/
 	private Integer id;
 
+	/** 账号*/
 	private String username;
 
+	/** 密码*/
 	private String password;
 
+	/** 昵称*/
 	private String nickname;
 
+	/** 邮箱*/
 	private String email;
 
+	/** 头像*/
 	private String picture;
 
+	/** 简介*/
 	private String introduction;
 
 	public void setId(Integer id) {
@@ -78,13 +82,13 @@ public class User {
 	@Override
 	public String toString() {
 		return "User{" +
-				"id=" + id +
-				", username='" + username + '\'' +
-				", password='" + password + '\'' +
-				", nickname='" + nickname + '\'' +
-				", email='" + email + '\'' +
-				", picture='" + picture + '\'' +
-				", introduction='" + introduction + '\'' +
+				"id='" + id + '\'' +
+				", username='" + username +'\''+
+				", password='" + password +'\''+
+				", nickname='" + nickname +'\''+
+				", email='" + email +'\''+
+				", picture='" + picture +'\''+
+				", introduction='" + introduction +'\''+
 				'}';
 	}
 }
