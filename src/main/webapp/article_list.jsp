@@ -10,9 +10,9 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="header.jsp" />
 <body>
-<jsp:include page="navbar.jsp"></jsp:include>
+<jsp:include page="navbar.jsp" />
 <div class="container">
     <%--路径导航--%>
     <ol class="breadcrumb">
@@ -22,7 +22,7 @@
     </ol>
     <div class="row">
             <%--左侧帮助--%>
-            <jsp:include page="left_help.jsp"></jsp:include>
+            <jsp:include page="left_help.jsp" />
         <%--首页左侧--%>
         <div class="col-md-9">
             <%--博文列表--%>
@@ -271,5 +271,12 @@
             </div>
         </div>
 </div>
+
+<script>
+    $(function () {
+        $.post("/article/list",{rows:10,page:1});
+    })
+
+</script>
 </body>
 </html>

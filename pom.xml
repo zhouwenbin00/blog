@@ -51,8 +51,17 @@
       <version>1.1.2</version>
     </dependency>
 
-
-
+    <!--json-->
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jdk8</artifactId>
+      <version>2.9.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>2.9.4</version>
+    </dependency>
 
     <!--jdbc-->
     <dependency>
@@ -66,8 +75,6 @@
       <artifactId>commons-dbutils</artifactId>
       <version>1.6</version>
     </dependency>
-
-
 
 
     <!--日志-->

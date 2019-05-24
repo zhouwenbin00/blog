@@ -115,6 +115,6 @@ public class InitDb {
 
     public static void main(String[] args) throws Exception {
 //    InitDb.initDB( SerivceEnviroment.getSerivceEnviroment());
-//        CreateTable();
+        CreateTable();
     }
 }

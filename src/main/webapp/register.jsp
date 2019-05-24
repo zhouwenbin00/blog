@@ -5,7 +5,7 @@
   Time: 19:38
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-group">
                     <label for="username">账号：</label>
-                    <input type="email" class="form-control"  id="username" name="username" placeholder="账号">
+                    <input type="text" class="form-control"  id="username" name="username" placeholder="账号">
                 </div>
                 <div class="form-group">
                         <label for="password" >密码：</label>
@@ -55,5 +55,90 @@
         </div>
     </footer>
 </div>
+<script>
+    $(function () {
+        $('form').bootstrapValidator({
+            disableSubmitButtons: false,
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                nickname: {
+                    message: '昵称验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '昵称不能为空'
+                        },
+                        regexp: {
+                            regexp: /^[^ ]+$/,
+                            message: '昵称不能有空格'
+                        }
+                    }
+                },
+                username:{
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        },
+                        regexp: {
+                            regexp: /^[^ ]+$/,
+                            message: '用户名不能有空格'
+                        },
+                        // threshold: 1,//只有1个字符以上才发送ajax请求
+                        remote: {
+                            url: "${basePath}user/checkUnique",
+                            data: function (validator) {
+                                return {
+                                    username: $("#username").val(),
+                                };
+                            },
+                            message: '该用户名已被使用，请使用其他用户名',
+                            delay:2000
+                        }
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 18,
+                            message: '密码长度应大于6小于18'
+                        },
+                        regexp: {
+                            regexp: /^[^ ]+$/,
+                            message: '密码不能有空格'
+                        }
+                    }
+                },
+                password2: {
+                    validators: {
+                        notEmpty: {
+                            message: '确认密码不能为空'
+                        },
+                        identical: {
+                            field: 'password',
+                            message: '密码不一致！'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 18,
+                            message: '密码长度应大于6小于18'
+                        },
+                        regexp: {
+                            regexp: /^[^ ]+$/,
+                            message: '密码不能有空格'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>

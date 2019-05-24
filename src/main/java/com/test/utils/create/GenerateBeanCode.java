@@ -15,7 +15,7 @@ public class GenerateBeanCode {
 
   private static final String DRIVER = "com.mysql.jdbc.Driver";
   private static final String URL =
-      "jdbc:mysql://127.0.0.1:3306/game_data?autoReconnect=true&characterEncoding=UTF-8";
+      "jdbc:mysql://127.0.0.1:3306/blog?autoReconnect=true&characterEncoding=UTF-8";
   private static final String USERNAME = "game";
   private static final String PASSWORD = "game";
 
@@ -372,7 +372,22 @@ public class GenerateBeanCode {
       Map<String, String> columnComments = getColumnComments(key);
       // 这里创建文件
       File file = new File(path + "\\" + toCamelCase(1, key) + ".java");
-      setFile(file);
+      //      setFile(file);
+      if (!file.exists()) {
+        try {
+          file.createNewFile();
+        } catch (IOException e) {
+          e.printStackTrace();
+          LOGGER.error("create New File failure", e);
+        }
+      } else {
+        file.delete();
+        try {
+          file.createNewFile();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
       // package 声明
       append(file, String.format("package %s;" + "\r\n\r\n", packageName));
       // 导包文本添加
@@ -397,7 +412,7 @@ public class GenerateBeanCode {
             file,
             String.format(
                 "\t" + "private %s %s;" + "\r\n",
-                fieldBean.getType(), toCamelCase(0, fieldBean.getName())));
+                fieldBean.getType(), fieldBean.getName()));
       }
       append(file, "\r\n");
       for (FieldBean fieldBean : map.get(key)) {
@@ -419,7 +434,7 @@ public class GenerateBeanCode {
                 toCamelCase(1, fieldBean.getName()),
                 fieldBean.getType(),
                 toCamelCase(0, fieldBean.getName()),
-                toCamelCase(0, fieldBean.getName()),
+                fieldBean.getName(),
                 toCamelCase(0, fieldBean.getName())));
         append(
             file,
@@ -437,8 +452,32 @@ public class GenerateBeanCode {
                     + "\r\n",
                 fieldBean.getType(),
                 toCamelCase(1, fieldBean.getName()),
-                toCamelCase(0, fieldBean.getName())));
+                fieldBean.getName()));
       }
+      // 写入toString
+      append(
+          file,
+          String.format(
+              "\t@Override\n" + "\tpublic String toString() {\n" + "\t\treturn \"%s{\" +\n",
+              toCamelCase(1, key)));
+      boolean index = true;
+      for (FieldBean fieldBean : map.get(key)) {
+        if (index) {
+          append(
+              file,
+              String.format(
+                  "\t\t\t\t\"%s='\" + %s + '\\'' +\n",
+                  toCamelCase(0, fieldBean.getName()), fieldBean.getName()));
+          index = false;
+        } else {
+          append(
+              file,
+              String.format(
+                  "\t\t\t\t\", %s='\" + %s +'\\''+\n",
+                  toCamelCase(0, fieldBean.getName()), fieldBean.getName()));
+        }
+      }
+      append(file, "\t\t\t\t'}';\n" + "\t}\n");
       append(file, "}");
       LOGGER.info("表{}的实体类{}创建完成", key, toCamelCase(1, key));
     }

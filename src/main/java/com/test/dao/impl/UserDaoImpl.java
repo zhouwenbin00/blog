@@ -7,6 +7,7 @@ import com.test.utils.sql.Prepare;
 import com.test.utils.sql.Select;
 import com.test.utils.sql.Where;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,10 +15,10 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
 
   @Override
-  public User login(String username, String password) {
+  public User login(String username, String password) throws SQLException {
     Select select =
         Prepare.select("*")
-            .from("t_user")
+            .from("user")
             .where(
                 Where.create()
                     .whereEquals("username", username)

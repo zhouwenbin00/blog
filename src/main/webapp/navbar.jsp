@@ -30,7 +30,7 @@
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="<%=basePath%>index.jsp">首页</a></li>
                 <li><a href="<%=basePath%>article_list.jsp">博文</a></li>
-                <li><a href="#">个人随笔</a></li>
+                <li><a href="<%=basePath%>article_write.jsp">写博客</a></li>
                 <li><a href="<%=basePath%>message_board.jsp">留言板</a></li>
                 <li><a href="<%=basePath%>about.jsp">关于本站</a></li>
             </ul>

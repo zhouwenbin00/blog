@@ -80,27 +80,28 @@ public class DBUtil {
     return i;
   }
 
-    /**
-     * 执行update
-     * @param update
-     * @return
-     */
-    public static int executeUpdate(SQL update) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        int i = -1;
-        try {
-            connection = getConnection();
-            preparedStatement = setSqlParams(connection, update.sql(), update.params());
-            i = preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
-        } finally {
-            close(connection, preparedStatement, null);
-            LOGGER.info("执行:{}参数：{}", update.sql(), Arrays.toString(update.params()));
-        }
-        return i;
+  /**
+   * 执行update
+   *
+   * @param update
+   * @return
+   */
+  public static int executeUpdate(SQL update) {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    int i = -1;
+    try {
+      connection = getConnection();
+      preparedStatement = setSqlParams(connection, update.sql(), update.params());
+      i = preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+      LOGGER.error(e.getMessage());
+    } finally {
+      close(connection, preparedStatement, null);
+      LOGGER.info("执行:{}参数：{}", update.sql(), Arrays.toString(update.params()));
     }
+    return i;
+  }
 
   /**
    * 执行查询，返回bean集合
@@ -130,87 +131,66 @@ public class DBUtil {
     return list;
   }
 
-    public static <T> List<T> QueryList(Select select, Class<T> clazz) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        List<T> list = null;
-        try {
-            connection = getConnection();
-            preparedStatement = setSqlParams(connection, select.sql(), select.params());
-            resultSet = preparedStatement.executeQuery();
-            list = BeanUtil.newListFromResultSet(resultSet, clazz);
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
-        } finally {
-            close(connection, preparedStatement, resultSet);
-            LOGGER.info("执行:{}参数：{}", select.sql(), Arrays.toString(select.params()));
-        }
-
-        return list;
+  public static <T> List<T> QueryList(Select select, Class<T> clazz) {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    List<T> list = null;
+    try {
+      connection = getConnection();
+      preparedStatement = setSqlParams(connection, select.sql(), select.params());
+      resultSet = preparedStatement.executeQuery();
+      list = BeanUtil.newListFromResultSet(resultSet, clazz);
+    } catch (SQLException e) {
+      LOGGER.error(e.getMessage());
+    } finally {
+      close(connection, preparedStatement, resultSet);
+      LOGGER.info("执行:{}参数：{}", select.sql(), Arrays.toString(select.params()));
     }
 
-    /**
-     * 执行查询，返回bean对象
-     * @param sql
-     * @param clazz
-     * @param <T>
-     * @return
-     */
-    public static <T> T QueryOne(String sql, Class<T> clazz, Object... params) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        T t = null;
-        try {
-            connection = getConnection();
-            preparedStatement = setSqlParams(connection, sql, params);
-            resultSet = preparedStatement.executeQuery();
-            t = BeanUtil.newObjFromResultSet(resultSet, clazz);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            close(connection, preparedStatement, resultSet);
-            LOGGER.info("执行:{}参数：{}", sql, Arrays.toString(params));
-        }
-        return t;
-    }
+    return list;
+  }
 
-
-  public static <T> T QueryOne(Select select, Class<T> clazz) {
+  /**
+   * 执行查询，返回bean对象
+   *
+   * @param sql
+   * @param clazz
+   * @param <T>
+   * @return
+   */
+  public static <T> T QueryOne(String sql, Class<T> clazz, Object... params) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     T t = null;
     try {
       connection = getConnection();
-      preparedStatement = setSqlParams(connection, select.sql(), select.params());
+      preparedStatement = setSqlParams(connection, sql, params);
       resultSet = preparedStatement.executeQuery();
       t = BeanUtil.newObjFromResultSet(resultSet, clazz);
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
       close(connection, preparedStatement, resultSet);
-      LOGGER.info("执行:{}参数：{}", select.sql(), Arrays.toString(select.params()));
+      LOGGER.info("执行:{}参数：{}", sql, Arrays.toString(params));
     }
     return t;
   }
 
-  //    public static <T> void QueryOneByObject(T t) throws IllegalAccessException {
-  //        Map<String, Field> fieldMap = BeanUtil.getFieldMap(t.getClass());
-  //        for (String key : fieldMap.keySet()) {
-  //            Field field = fieldMap.get(key);
-  //            String type = field.getType().toString();
-  //            Object value = field.get(t);
-  //            String s = String.valueOf(value);
-  //
-  //            System.out.println(value);
-  //
-  //        }
-  //
-  ////        QueryOne(sql,t.getClass(),params);
-  //
-  //    }
+  public static <T> T QueryOne(Select select, Class<T> clazz) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    T t = null;
+    connection = getConnection();
+    preparedStatement = setSqlParams(connection, select.sql(), select.params());
+    resultSet = preparedStatement.executeQuery();
+    t = BeanUtil.newObjFromResultSet(resultSet, clazz);
+    close(connection, preparedStatement, resultSet);
+    LOGGER.info("执行:{}参数：{}", select.sql(), Arrays.toString(select.params()));
+    return t;
+  }
 
   /**
    * 设置sql参数

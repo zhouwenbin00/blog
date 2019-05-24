@@ -14,36 +14,11 @@
 <head>
     <title>Title</title>
 </head>
-<script src="js/jquery.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="<%=basePath%>css/common.css">
+<script type="text/javascript" src="js/wangEditor.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <body>
- <%--${sessionScope.user.nickname}--%>
- <%--${sessionScope.user.username}--%>
-<%
-//User user =   (User)session.getAttribute("user");
-    Cookie[] cookies = request.getCookies();
-    for (Cookie cookie : cookies) {
-        String name = cookie.getName();
-        String value = cookie.getValue();
-%>
-<%=name%>
-<%=value%>
-<%
-    }
-%>
-<%--<%=user.getNickname()%>--%>
-<%--${cookie.username.value}--%>
- <button onclick="send()">点"</button>
- <script>
-     function send(){
-         $.post("<%=basePath%>testServlet",{id:'1',username:'zhangsan',password:'123',birthday:'2018-05-07'},function(result){
-         });
-     }
-
- </script>
-
-
-
-
+ ${requestScope.article.content}
 
 </body>
 </html>
